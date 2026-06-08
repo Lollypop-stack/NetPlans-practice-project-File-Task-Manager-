@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Task Manager</title>
+    <link rel="stylesheet" href="inner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <div class="logo">Task Manager</div>
+
+        <a href="#">
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+        </a>
+
+        <a href="FilesFrontend/filesFronend.html">
+            <i class="fa-solid fa-file"></i>
+            Files
+        </a>
+
+        <a href="TasksFrontend/tasksFrontend.html">
+            <i class="fa-solid fa-list-check"></i>
+            Tasks
+        </a>
+
+        <a href="LogsFrontend/logsFrontend.html">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            Logs
+        </a>
+
+        <a href="#">
+            <i class="fa-solid fa-gear"></i>
+            Settings
+        </a>
+
+    </div>
+
+    <div class="main">
+
+        <div class="header">
+            <h1>File Task Manager</h1>
+            <div class="user" id="currentUser">Admin</div>
+        </div>
+
+        <div class="stats">
+
+            <div class="card">
+                <h3>Total Files</h3>
+                <div class="number" id="totalFiles">0</div>
+            </div>
+
+            <div class="card">
+                <h3>Active Tasks</h3>
+                <div class="number" id="activeTasks">0</div>
+            </div>
+
+            <div class="card">
+                <h3>Completed Tasks</h3>
+                <div class="number" id="completedTasks">0</div>
+            </div>
+
+            <div class="card">
+                <h3>Users</h3>
+                <div class="number" id="totalUsers">0</div>
+            </div>
+
+        </div>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>File</th>
+                        <th>Assigned User</th>
+                        <th>Status</th>
+                        <th>Last Modified</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="taskTable">
+
+                    <!-- Заполняется через C# -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+        <div id="taskDetails">
+            <h2>Task Details</h2>
+
+            <p><strong>File:</strong> <span id="detailFile"></span></p>
+
+            <p><strong>User:</strong> <span id="detailUser"></span></p>
+
+            <p><strong>Status:</strong> <span id="detailStatus"></span></p>
+
+            <p><strong>Last Modified:</strong> <span id="detailModified"></span></p>
+
+            <p><strong>Description:</strong></p>
+            <div id="detailDescription"></div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

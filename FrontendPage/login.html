@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Task Manager — Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="inner.css">
+</head>
+<body class="login-page">
+
+<div class="card">
+
+    <div class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-code-branch"></i></div>
+        <div class="logo-text">File Task Manager</div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab active" onclick="switchTab('login')">Sign In</button>
+        <button class="tab" onclick="switchTab('register')">Register</button>
+    </div>
+
+    <!-- ── LOGIN ── -->
+    <div class="form-panel active" id="panel-login">
+        <div class="form-title">Welcome back!</div>
+        <div class="form-sub">Enter your credentials to continue:</div>
+
+        <div class="alert" id="login-alert">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span id="login-alert-msg"></span>
+        </div>
+
+        <div class="field">
+            <label>Username</label>
+            <div class="input-wrap">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="login-user" placeholder="username" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Password</label>
+            <div class="input-wrap">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="login-pass" placeholder="••••••••">
+                <button class="toggle-pw" onclick="togglePw('login-pass', this)" tabindex="-1">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+            </div>
+        </div>
+
+        <button class="btn-submit" onclick="handleLogin()">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Sign In
+        </button>
+
+        <div class="hint">admin / admin → <span>admin panel</span></div>
+    </div>
+
+    <!-- ── REGISTER ── -->
+    <div class="form-panel" id="panel-register">
+        <div class="form-title">Create account!</div>
+        <div class="form-sub">Fill in the details to register:</div>
+
+        <div class="alert" id="reg-alert">
+            <i class="fa-solid fa-circle-info"></i>
+            <span id="reg-alert-msg"></span>
+        </div>
+
+        <div class="field">
+            <label>Username</label>
+            <div class="input-wrap">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="reg-user" placeholder="choose a username" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Password</label>
+            <div class="input-wrap">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="reg-pass" placeholder="••••••••">
+                <button class="toggle-pw" onclick="togglePw('reg-pass', this)" tabindex="-1">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Confirm Password</label>
+            <div class="input-wrap">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="reg-confirm" placeholder="repeat password">
+                <button class="toggle-pw" onclick="togglePw('reg-confirm', this)" tabindex="-1">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+            </div>
+        </div>
+
+        <button class="btn-submit" onclick="handleRegister()">
+            <i class="fa-solid fa-user-plus"></i>
+            Create Account
+        </button>
+    </div>
+
+</div>
+
+<script>
+    // ── Storage helpers ──────────────────────────────────────────
+    function getUsers() {
+        return JSON.parse(localStorage.getItem('ftm_users') || '[]');
+    }
+    function saveUsers(users) {
+        localStorage.setItem('ftm_users', JSON.stringify(users));
+    }
+
+    // ── Tab switch ───────────────────────────────────────────────
+    function switchTab(tab) {
+        document.querySelectorAll('.tab').forEach((t, i) => {
+            t.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'register'));
+        });
+        document.getElementById('panel-login').classList.toggle('active', tab === 'login');
+        document.getElementById('panel-register').classList.toggle('active', tab === 'register');
+        hideAlert('login-alert');
+        hideAlert('reg-alert');
+    }
+
+    // ── Alert helpers ────────────────────────────────────────────
+    function showAlert(id, msg, type = 'error') {
+        const el = document.getElementById(id);
+        el.className = 'alert ' + type;
+        document.getElementById(id + '-msg').textContent = msg;
+    }
+    function hideAlert(id) {
+        document.getElementById(id).className = 'alert';
+    }
+
+    // ── Toggle password visibility ───────────────────────────────
+    function togglePw(inputId, btn) {
+        const inp = document.getElementById(inputId);
+        const icon = btn.querySelector('i');
+        if (inp.type === 'password') {
+            inp.type = 'text';
+            icon.className = 'fa-solid fa-eye-slash';
+        } else {
+            inp.type = 'password';
+            icon.className = 'fa-solid fa-eye';
+        }
+    }
+
+    // ── LOGIN ────────────────────────────────────────────────────
+    function handleLogin() {
+        const username = document.getElementById('login-user').value.trim();
+        const password = document.getElementById('login-pass').value;
+
+        if (!username || !password) {
+            showAlert('login-alert', 'Please fill in all fields.'); return;
+        }
+
+        // Hardcoded admin
+        if (username === 'admin' && password === 'admin') {
+            window.location.href = 'inner.html'; return;
+        }
+
+        // Registered users
+        const users = getUsers();
+        const found = users.find(u => u.username === username && u.password === password);
+        if (found) {
+            // Store current user for inner pages to read
+            sessionStorage.setItem('ftm_currentUser', username);
+            window.location.href = 'inner.html';
+        } else {
+            showAlert('login-alert', 'Invalid username or password.');
+        }
+    }
+
+    // ── REGISTER ─────────────────────────────────────────────────
+    function handleRegister() {
+        const username = document.getElementById('reg-user').value.trim();
+        const password = document.getElementById('reg-pass').value;
+        const confirm  = document.getElementById('reg-confirm').value;
+
+        if (!username || !password || !confirm) {
+            showAlert('reg-alert', 'Please fill in all fields.'); return;
+        }
+        if (username.length < 3) {
+            showAlert('reg-alert', 'Username must be at least 3 characters.'); return;
+        }
+        if (password.length < 4) {
+            showAlert('reg-alert', 'Password must be at least 4 characters.'); return;
+        }
+        if (password !== confirm) {
+            showAlert('reg-alert', 'Passwords do not match.'); return;
+        }
+        if (username === 'admin') {
+            showAlert('reg-alert', 'This username is reserved.'); return;
+        }
+
+        const users = getUsers();
+        if (users.find(u => u.username === username)) {
+            showAlert('reg-alert', 'Username already taken.'); return;
+        }
+
+        users.push({ username, password });
+        saveUsers(users);
+        showAlert('reg-alert', 'Account created! You can now sign in.', 'success');
+
+        setTimeout(() => switchTab('login'), 1200);
+    }
+
+    // ── Enter key support ────────────────────────────────────────
+    document.addEventListener('keydown', e => {
+        if (e.key !== 'Enter') return;
+        const loginActive = document.getElementById('panel-login').classList.contains('active');
+        if (loginActive) handleLogin(); else handleRegister();
+    });
+</script>
+
+</body>
+</html>
