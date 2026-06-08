@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Task Manager — Login</title>
+    <title data-i18n-title="signIn">File Task Manager — Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="inner.css">
 </head>
@@ -13,19 +13,19 @@
 
     <div class="logo">
         <div class="logo-icon"><i class="fa-solid fa-code-branch"></i></div>
-        <div class="logo-text">File Task Manager</div>
+        <div class="logo-text" data-i18n="appTitle">File Task Manager</div>
     </div>
 
     <!-- Tabs -->
     <div class="tabs">
-        <button class="tab active" onclick="switchTab('login')">Sign In</button>
-        <button class="tab" onclick="switchTab('register')">Register</button>
+        <button class="tab active" onclick="switchTab('login')" data-i18n="signIn">Sign In</button>
+        <button class="tab" onclick="switchTab('register')" data-i18n="register">Register</button>
     </div>
 
     <!-- ── LOGIN ── -->
     <div class="form-panel active" id="panel-login">
-        <div class="form-title">Welcome back!</div>
-        <div class="form-sub">Enter your credentials to continue:</div>
+        <div class="form-title" data-i18n="welcomeBack">Welcome back!</div>
+        <div class="form-sub" data-i18n="credentialsPrompt">Enter your credentials to continue:</div>
 
         <div class="alert" id="login-alert">
             <i class="fa-solid fa-triangle-exclamation"></i>
@@ -33,36 +33,36 @@
         </div>
 
         <div class="field">
-            <label>Username</label>
+            <label data-i18n="username">Username</label>
             <div class="input-wrap">
                 <i class="fa-solid fa-user"></i>
-                <input type="text" id="login-user" placeholder="username" autocomplete="off">
+                <input type="text" id="login-user" placeholder="username" autocomplete="off" data-i18n-placeholder="placeholderUsername">
             </div>
         </div>
 
         <div class="field">
-            <label>Password</label>
+            <label data-i18n="password">Password</label>
             <div class="input-wrap">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" id="login-pass" placeholder="••••••••">
+                <input type="password" id="login-pass" placeholder="••••••••" data-i18n-placeholder="placeholderPassword">
                 <button class="toggle-pw" onclick="togglePw('login-pass', this)" tabindex="-1">
                     <i class="fa-solid fa-eye"></i>
                 </button>
             </div>
         </div>
 
-        <button class="btn-submit" onclick="handleLogin()">
+        <button class="btn-submit" onclick="handleLogin()" data-i18n="signIn">
             <i class="fa-solid fa-right-to-bracket"></i>
             Sign In
         </button>
 
-        <div class="hint">admin / admin → <span>admin panel</span></div>
+        <div class="hint" data-i18n="adminHint">admin / admin → <span>admin panel</span></div>
     </div>
 
     <!-- ── REGISTER ── -->
     <div class="form-panel" id="panel-register">
-        <div class="form-title">Create account!</div>
-        <div class="form-sub">Fill in the details to register:</div>
+        <div class="form-title" data-i18n="createAccount">Create account!</div>
+        <div class="form-sub" data-i18n="registerPrompt">Fill in the details to register:</div>
 
         <div class="alert" id="reg-alert">
             <i class="fa-solid fa-circle-info"></i>
@@ -70,18 +70,18 @@
         </div>
 
         <div class="field">
-            <label>Username</label>
+            <label data-i18n="username">Username</label>
             <div class="input-wrap">
                 <i class="fa-solid fa-user"></i>
-                <input type="text" id="reg-user" placeholder="choose a username" autocomplete="off">
+                <input type="text" id="reg-user" placeholder="choose a username" autocomplete="off" data-i18n-placeholder="placeholderChooseUsername">
             </div>
         </div>
 
         <div class="field">
-            <label>Password</label>
+            <label data-i18n="password">Password</label>
             <div class="input-wrap">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" id="reg-pass" placeholder="••••••••">
+                <input type="password" id="reg-pass" placeholder="••••••••" data-i18n-placeholder="placeholderPassword">
                 <button class="toggle-pw" onclick="togglePw('reg-pass', this)" tabindex="-1">
                     <i class="fa-solid fa-eye"></i>
                 </button>
@@ -89,17 +89,17 @@
         </div>
 
         <div class="field">
-            <label>Confirm Password</label>
+            <label data-i18n="confirmPassword">Confirm Password</label>
             <div class="input-wrap">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" id="reg-confirm" placeholder="repeat password">
+                <input type="password" id="reg-confirm" placeholder="repeat password" data-i18n-placeholder="placeholderRepeatPassword">
                 <button class="toggle-pw" onclick="togglePw('reg-confirm', this)" tabindex="-1">
                     <i class="fa-solid fa-eye"></i>
                 </button>
             </div>
         </div>
 
-        <button class="btn-submit" onclick="handleRegister()">
+        <button class="btn-submit" onclick="handleRegister()" data-i18n="createAccount">
             <i class="fa-solid fa-user-plus"></i>
             Create Account
         </button>
@@ -217,6 +217,7 @@
         if (loginActive) handleLogin(); else handleRegister();
     });
 </script>
+<script src="settings.js"></script>
 
 </body>
 </html>

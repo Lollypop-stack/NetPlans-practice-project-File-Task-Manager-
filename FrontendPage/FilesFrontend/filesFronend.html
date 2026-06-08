@@ -4,18 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Files</title>
+    <title data-i18n-title="filesTitle">Files</title>
     <link rel="stylesheet" href="../inner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
-<body>
-    <div class="main">
-
-        <div class="header">
-            <h1>Files</h1>
-            <button id="uploadFileBtn">Upload File</button>
+<body class="filesBody">
+    <a href="/FrontendPage/inner.html" style="text-decoration: none; color: #e2e8f0;">
+        <div class="returnButton">
+            <i class="fa-solid fa-arrow-left"></i>
+            <label class="returnButtonText" style="cursor: pointer;" data-i18n="back">Back</label>
         </div>
-        <input type="text" class="search-box" id="fileSearch" placeholder="Search files...">
+    </a>
+    <div class="main">
+        <div class="header">
+            <h1 data-i18n="filesTitle">Files</h1>
+            <button id="uploadFileBtn" data-i18n="uploadFile">Upload File</button>
+        </div>
+        <input type="text" class="search-box" id="fileSearch" placeholder="Search files..." data-i18n-placeholder="searchFiles">
         <div class="table-container">
 
             <table>
@@ -39,6 +45,7 @@
         </div>
 
     </div>
+    <script src="../settings.js"></script>
 </body>
 
 </html>

@@ -4,17 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Activity Logs</title>
+    <title data-i18n-title="activityLogs">Activity Logs</title>
     <link rel="stylesheet" href="../inner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
-<body>
+<body class="logsBody">
+    <a href="/FrontendPage/inner.html" style="text-decoration: none; color: #e2e8f0;">
+        <div class="returnButton">
+            <i class="fa-solid fa-arrow-left"></i>
+            <label class="returnButtonText" style="cursor: pointer;" data-i18n="back">Back</label>
+        </div>
+    </a>
     <div class="main">
 
         <div class="header">
-            <h1>Activity Logs</h1>
+            <h1 data-i18n="activityLogs">Activity Logs</h1>
         </div>
-        <input type="text" class="search-box" id="logSearch" placeholder="Search logs...">
+        <input type="text" class="search-box" id="logSearch" placeholder="Search logs..." data-i18n-placeholder="searchLogs">
         <div class="table-container">
 
             <table>
@@ -37,6 +44,7 @@
         </div>
 
     </div>
+    <script src="../settings.js"></script>
 </body>
 
 </html>

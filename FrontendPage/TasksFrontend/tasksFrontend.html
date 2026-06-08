@@ -4,18 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tasks</title>
+    <title data-i18n-title="tasksTitle">Tasks</title>
     <link rel="stylesheet" href="../inner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
-<body>
+<body class="tasksBody">
+    <a href="/FrontendPage/inner.html" style="text-decoration: none; color: #e2e8f0;">
+        <div class="returnButton">
+            <i class="fa-solid fa-arrow-left"></i>
+            <label class="returnButtonText" style="cursor: pointer;" data-i18n="back">Back</label>
+        </div>
+    </a>
     <div class="main">
 
         <div class="header">
-            <h1>Tasks</h1>
-            <button id="createTaskBtn">Create Task</button>
+            <h1 data-i18n="tasksTitle">Tasks</h1>
+            <button id="createTaskBtn" data-i18n="createTask">Create Task</button>
         </div>
-        <input type="text" class="search-box" id="taskSearch" placeholder="Search tasks...">
+        <input type="text" class="search-box" id="taskSearch" placeholder="Search tasks..." data-i18n-placeholder="searchTasks">
         <div class="table-container">
 
 
@@ -41,6 +48,7 @@
         </div>
 
     </div>
+    <script src="../settings.js"></script>
 </body>
 
 </html>

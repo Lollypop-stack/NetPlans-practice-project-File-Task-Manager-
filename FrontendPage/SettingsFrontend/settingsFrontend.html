@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-title="settingsHeader">Einstellungen</title>
+
+    <link rel="stylesheet" href="../inner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body class="settingsBody">
+
+    <a href="/FrontendPage/inner.html" style="text-decoration: none; color: #e2e8f0;">
+        <div class="returnButton">
+            <i class="fa-solid fa-arrow-left"></i>
+            <label class="returnButtonText" style="cursor:pointer;" data-i18n="back">Back</label>
+        </div>
+    </a>
+
+    <div class="main">
+
+        <div class="header">
+            <h1 data-i18n="settingsHeader">Einstellungen</h1>
+        </div>
+
+        <div class="card settings-card">
+
+            <div class="field">
+                <label for="language">
+                    <i class="fa-solid fa-language"></i>
+                    <span data-i18n="language">Sprache der Benutzeroberfläche</span>
+                </label>
+
+                <select id="language">
+                    <option value="de" data-i18n="deutsch">Deutsch</option>
+                    <option value="en" data-i18n="english">English</option>
+                    <option value="ru" data-i18n="russian">Русский</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="theme">
+                    <i class="fa-solid fa-palette"></i>
+                    <span data-i18n="theme">Design</span>
+                </label>
+
+                <select id="theme">
+                    <option value="dark" data-i18n="dark">Dunkel</option>
+                    <option value="light" data-i18n="light">Hell</option>
+                    <option value="system" data-i18n="system">Systemstandard</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="fontSize">
+                    <i class="fa-solid fa-font"></i>
+                    <span data-i18n="fontSize">Schriftgröße</span>
+                </label>
+
+                <select id="fontSize">
+                    <option value="small" data-i18n="small">Klein</option>
+                    <option value="medium" selected data-i18n="medium">Mittel</option>
+                    <option value="large" data-i18n="large">Groß</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="timezone">
+                    <i class="fa-solid fa-clock"></i>
+                    <span data-i18n="timezone">Zeitzone</span>
+                </label>
+
+                <select id="timezone">
+                    <option value="Europe/Berlin">Europe/Berlin</option>
+                    <option value="UTC">UTC</option>
+                    <option value="America/New_York">America/New_York</option>
+                    <option value="Asia/Tokyo">Asia/Tokyo</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label><span data-i18n="storagePath">Speicherpfad</span></label>
+
+                <div class="path-row">
+                    <input type="text" id="storagePath" readonly>
+                    <button type="button" id="browsePath" data-i18n="browse">
+                        Durchsuchen
+                    </button>
+                </div>
+            </div>
+
+            <button id="saveSettings" data-i18n="saveSettings">
+                <i class="fa-solid fa-floppy-disk"></i>
+                Einstellungen speichern
+            </button>
+
+        </div>
+
+    </div>
+<script src="../settings.js"></script>
+</body>
+
+</html>
+
