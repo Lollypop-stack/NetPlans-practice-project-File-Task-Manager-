@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n-title="activityLogs">Activity Logs</title>
+    <title data-i18n-title="filesTitle">Files</title>
     <link rel="stylesheet" href="../inner.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
-<body class="logsBody">
+<body class="filesBody">
     <a href="/FrontendPage/inner.html" style="text-decoration: none; color: #e2e8f0;">
         <div class="returnButton">
             <i class="fa-solid fa-arrow-left"></i>
@@ -17,12 +17,11 @@
         </div>
     </a>
     <div class="main">
-
         <div class="header">
             <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
-            <h1 data-i18n="activityLogs">Activity Logs</h1>
+            <h1 data-i18n="filesTitle">Files</h1>
             <div class="header-right">
                 <div class="account-card">
                     <div class="account-avatar" aria-hidden="true"><i class="fa-solid fa-circle-user"></i></div>
@@ -42,27 +41,31 @@
                 <button type="button" class="mobile-nav-close" aria-label="Close navigation menu">×</button>
             </div>
             <a href="../inner.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
-            <a href="../FilesFrontend/filesFrontend.html"><i class="fa-solid fa-file"></i><span>Files</span></a>
+            <a href="filesFrontend.html"><i class="fa-solid fa-file"></i><span>Files</span></a>
             <a href="../TasksFrontend/tasksFrontend.html"><i class="fa-solid fa-list-check"></i><span>Tasks</span></a>
-            <a href="logsFrontend.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Logs</span></a>
+            <a href="../LogsFrontend/logsFrontend.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Logs</span></a>
             <a href="../SettingsFrontend/settingsFrontend.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
         </nav>
         <div class="mobile-nav-overlay"></div>
-        <input type="text" class="search-box" id="logSearch" placeholder="Search logs..." data-i18n-placeholder="searchLogs">
+        <div class="page-actions">
+            <button id="uploadFileBtn" data-i18n="uploadFile">Upload File</button>
+        </div>
+        <input type="text" class="search-box" id="fileSearch" placeholder="Search files..." data-i18n-placeholder="searchFiles">
         <div class="table-container">
 
             <table>
 
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>User</th>
+                        <th>File Name</th>
+                        <th>Version</th>
+                        <th>Last Modified</th>
+                        <th>Modified By</th>
                         <th>Action</th>
-                        <th>Target</th>
                     </tr>
                 </thead>
 
-                <tbody id="logsTable">
+                <tbody id="filesTable">
 
                 </tbody>
 
@@ -73,7 +76,7 @@
     </div>
     <script src="../SettingsFrontend/settings.js"></script>
     <script src="../layout.js"></script>
-    <script src="logsFrontend.js"></script>
+    <script src="filesFrontend.js"></script>
 </body>
 
 </html>

@@ -20,7 +20,7 @@
             <span data-i18n="dashboard">Dashboard</span>
         </a>
 
-        <a href="FilesFrontend/filesFronend.html">
+        <a href="FilesFrontend/filesFrontend.html">
             <i class="fa-solid fa-file"></i>
             <span data-i18n="files">Files</span>
         </a>
@@ -35,7 +35,7 @@
             <span data-i18n="logs">Logs</span>
         </a>
 
-        <a href="settingsFrontend/settingsFrontend.html">
+        <a href="SettingsFrontend/settingsFrontend.html">
             <i class="fa-solid fa-gear"></i>
             <span data-i18n="settings">Settings</span>
         </a>
@@ -45,9 +45,43 @@
     <div class="main">
 
         <div class="header">
+            <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
             <h1 data-i18n="appTitle">File Task Manager</h1>
-            <div class="user" id="currentUser">Admin</div>
+            <div class="header-right">
+                <div class="account-card" id="accountCard">
+                    <div class="account-avatar" aria-hidden="true">
+                        <i class="fa-solid fa-circle-user"></i>
+                    </div>
+                    <div class="account-copy">
+                        <span class="account-label">Account</span>
+                        <strong class="user" id="currentUser">Admin</strong>
+                    </div>
+                    <button type="button" class="account-toggle" aria-expanded="false" aria-label="Open account menu">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="account-menu" hidden>
+                        <button type="button" class="account-menu-btn switch-account-btn">Switch account</button>
+                        <button type="button" class="account-menu-btn register-account-btn">Register account</button>
+                        <button type="button" class="account-menu-btn danger logout-btn">Log out</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <nav class="mobile-nav" aria-label="Mobile navigation">
+            <div class="mobile-nav-top">
+                <span class="mobile-nav-label">Menu</span>
+                <button type="button" class="mobile-nav-close" aria-label="Close navigation menu">×</button>
+            </div>
+            <a href="inner.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+            <a href="FilesFrontend/filesFrontend.html"><i class="fa-solid fa-file"></i><span>Files</span></a>
+            <a href="TasksFrontend/tasksFrontend.html"><i class="fa-solid fa-list-check"></i><span>Tasks</span></a>
+            <a href="LogsFrontend/logsFrontend.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Logs</span></a>
+            <a href="SettingsFrontend/settingsFrontend.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+        <div class="mobile-nav-overlay"></div>
 
         <div class="stats">
 
@@ -67,8 +101,8 @@
             </div>
 
             <div class="card">
-                <h3 data-i18n="users">Users</h3>
-                <div class="number" id="totalUsers">0</div>
+                <h3 data-i18n="Abandoned Tasks">Abandoned Tasks</h3>
+                <div class="number" id="abandonedTasks">0</div>
             </div>
 
         </div>
@@ -80,10 +114,12 @@
                 <thead>
                     <tr>
                         <th data-i18n="file">File</th>
+                        <th data-i18n="title">Title</th>
                         <th data-i18n="assignedUser">Assigned User</th>
                         <th data-i18n="status">Status</th>
                         <th data-i18n="lastModified">Last Modified</th>
                         <th data-i18n="action">Action</th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -112,7 +148,9 @@
         </div>
 
     </div>
-<script src="settings.js"></script>
+<script src="SettingsFrontend/settings.js"></script>
+<script src="layout.js"></script>
+<script src="inner.js"></script>
 </body>
 
 </html>

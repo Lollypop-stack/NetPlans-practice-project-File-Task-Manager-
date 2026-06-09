@@ -43,8 +43,8 @@
         <div class="field">
             <label data-i18n="password">Password</label>
             <div class="input-wrap">
-                <i class="fa-solid fa-lock"></i>
-                <input type="password" id="login-pass" placeholder="••••••••" data-i18n-placeholder="placeholderPassword">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" data-i18n-placeholder="placeholderPassword">
                 <button class="toggle-pw" onclick="togglePw('login-pass', this)" tabindex="-1">
                     <i class="fa-solid fa-eye"></i>
                 </button>
@@ -81,7 +81,7 @@
             <label data-i18n="password">Password</label>
             <div class="input-wrap">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" id="reg-pass" placeholder="••••••••" data-i18n-placeholder="placeholderPassword">
+                <input type="password" id="reg-pass" placeholder="••••••••" autocomplete="new-password" data-i18n-placeholder="placeholderPassword">
                 <button class="toggle-pw" onclick="togglePw('reg-pass', this)" tabindex="-1">
                     <i class="fa-solid fa-eye"></i>
                 </button>
@@ -92,7 +92,7 @@
             <label data-i18n="confirmPassword">Confirm Password</label>
             <div class="input-wrap">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" id="reg-confirm" placeholder="repeat password" data-i18n-placeholder="placeholderRepeatPassword">
+                <input type="password" id="reg-confirm" placeholder="repeat password" autocomplete="new-password" data-i18n-placeholder="placeholderRepeatPassword">
                 <button class="toggle-pw" onclick="togglePw('reg-confirm', this)" tabindex="-1">
                     <i class="fa-solid fa-eye"></i>
                 </button>
@@ -108,12 +108,15 @@
 </div>
 
 <script>
-    // ── Storage helpers ──────────────────────────────────────────
-    function getUsers() {
-        return JSON.parse(localStorage.getItem('ftm_users') || '[]');
-    }
-    function saveUsers(users) {
-        localStorage.setItem('ftm_users', JSON.stringify(users));
+    async function postJson(url, payload) {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json().catch(() => ({}));
+        return { response, data };
     }
 
     // ── Tab switch ───────────────────────────────────────────────
@@ -125,6 +128,13 @@
         document.getElementById('panel-register').classList.toggle('active', tab === 'register');
         hideAlert('login-alert');
         hideAlert('reg-alert');
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('tab') === 'register') {
+        switchTab('register');
+    } else {
+        switchTab('login');
     }
 
     // ── Alert helpers ────────────────────────────────────────────
@@ -141,6 +151,8 @@
     function togglePw(inputId, btn) {
         const inp = document.getElementById(inputId);
         const icon = btn.querySelector('i');
+        if (!inp || !icon) return;
+
         if (inp.type === 'password') {
             inp.type = 'text';
             icon.className = 'fa-solid fa-eye-slash';
@@ -151,62 +163,57 @@
     }
 
     // ── LOGIN ────────────────────────────────────────────────────
-    function handleLogin() {
+    async function handleLogin() {
         const username = document.getElementById('login-user').value.trim();
         const password = document.getElementById('login-pass').value;
 
         if (!username || !password) {
-            showAlert('login-alert', 'Please fill in all fields.'); return;
+            showAlert('login-alert', 'Please fill in all fields.');
+            return;
         }
 
-        // Hardcoded admin
-        if (username === 'admin' && password === 'admin') {
-            window.location.href = 'inner.html'; return;
+        const { response, data } = await postJson('/api/auth/login', { username, password });
+
+        if (!response.ok) {
+            showAlert('login-alert', data.message || 'Invalid username or password.');
+            return;
         }
 
-        // Registered users
-        const users = getUsers();
-        const found = users.find(u => u.username === username && u.password === password);
-        if (found) {
-            // Store current user for inner pages to read
-            sessionStorage.setItem('ftm_currentUser', username);
-            window.location.href = 'inner.html';
-        } else {
-            showAlert('login-alert', 'Invalid username or password.');
-        }
+        sessionStorage.setItem('ftm_currentUser', data.username || username);
+        window.location.href = 'inner.html';
     }
 
     // ── REGISTER ─────────────────────────────────────────────────
-    function handleRegister() {
+    async function handleRegister() {
         const username = document.getElementById('reg-user').value.trim();
         const password = document.getElementById('reg-pass').value;
-        const confirm  = document.getElementById('reg-confirm').value;
+        const confirm = document.getElementById('reg-confirm').value;
 
         if (!username || !password || !confirm) {
-            showAlert('reg-alert', 'Please fill in all fields.'); return;
+            showAlert('reg-alert', 'Please fill in all fields.');
+            return;
         }
         if (username.length < 3) {
-            showAlert('reg-alert', 'Username must be at least 3 characters.'); return;
+            showAlert('reg-alert', 'Username must be at least 3 characters.');
+            return;
         }
         if (password.length < 4) {
-            showAlert('reg-alert', 'Password must be at least 4 characters.'); return;
+            showAlert('reg-alert', 'Password must be at least 4 characters.');
+            return;
         }
         if (password !== confirm) {
-            showAlert('reg-alert', 'Passwords do not match.'); return;
-        }
-        if (username === 'admin') {
-            showAlert('reg-alert', 'This username is reserved.'); return;
+            showAlert('reg-alert', 'Passwords do not match.');
+            return;
         }
 
-        const users = getUsers();
-        if (users.find(u => u.username === username)) {
-            showAlert('reg-alert', 'Username already taken.'); return;
+        const { response, data } = await postJson('/api/auth/register', { username, password });
+
+        if (!response.ok) {
+            showAlert('reg-alert', data.message || 'Registration failed.');
+            return;
         }
 
-        users.push({ username, password });
-        saveUsers(users);
-        showAlert('reg-alert', 'Account created! You can now sign in.', 'success');
-
+        showAlert('reg-alert', data.message || 'Account created! You can now sign in.', 'success');
         setTimeout(() => switchTab('login'), 1200);
     }
 
@@ -217,7 +224,7 @@
         if (loginActive) handleLogin(); else handleRegister();
     });
 </script>
-<script src="settings.js"></script>
+<script src="SettingsFrontend/settings.js"></script>
 
 </body>
 </html>

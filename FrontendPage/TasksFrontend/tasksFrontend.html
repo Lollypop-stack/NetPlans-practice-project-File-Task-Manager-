@@ -19,7 +19,36 @@
     <div class="main">
 
         <div class="header">
+            <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
             <h1 data-i18n="tasksTitle">Tasks</h1>
+            <div class="header-right">
+                <div class="account-card">
+                    <div class="account-avatar" aria-hidden="true"><i class="fa-solid fa-circle-user"></i></div>
+                    <div class="account-copy"><span class="account-label">Account</span><strong class="user current-user-label">Admin</strong></div>
+                    <button type="button" class="account-toggle" aria-expanded="false" aria-label="Open account menu"><i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="account-menu" hidden>
+                        <button type="button" class="account-menu-btn switch-account-btn">Switch account</button>
+                        <button type="button" class="account-menu-btn register-account-btn">Register account</button>
+                        <button type="button" class="account-menu-btn danger logout-btn">Log out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="mobile-nav" aria-label="Mobile navigation">
+            <div class="mobile-nav-top">
+                <span class="mobile-nav-label">Menu</span>
+                <button type="button" class="mobile-nav-close" aria-label="Close navigation menu">×</button>
+            </div>
+            <a href="../inner.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+            <a href="../FilesFrontend/filesFrontend.html"><i class="fa-solid fa-file"></i><span>Files</span></a>
+            <a href="tasksFrontend.html"><i class="fa-solid fa-list-check"></i><span>Tasks</span></a>
+            <a href="../LogsFrontend/logsFrontend.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Logs</span></a>
+            <a href="../SettingsFrontend/settingsFrontend.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+        <div class="mobile-nav-overlay"></div>
+        <div class="page-actions">
             <button id="createTaskBtn" data-i18n="createTask">Create Task</button>
         </div>
         <input type="text" class="search-box" id="taskSearch" placeholder="Search tasks..." data-i18n-placeholder="searchTasks">
@@ -48,7 +77,9 @@
         </div>
 
     </div>
-    <script src="../settings.js"></script>
+    <script src="../SettingsFrontend/settings.js"></script>
+    <script src="../layout.js"></script>
+    <script src="tasksFrontend.js"></script>
 </body>
 
 </html>
