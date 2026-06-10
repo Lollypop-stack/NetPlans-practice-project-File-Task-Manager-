@@ -78,8 +78,21 @@ body.nav-open {
 
 .page-actions {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
     margin-bottom: 18px;
+    background-color: #2563eb;
+    width: 150px;
+    height: 40px;
+    margin-left: auto;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    gap: 8px;
+    font-weight: bold;
+}
+.page-actions.save-changes-btn {
+    min-width: 200px;
+    margin-left: 25px;
+    margin-top: 20px;
 }
 
 .header {
@@ -450,7 +463,6 @@ body.nav-open {
 
 table {
     width: 100%;
-    min-width: 680px;
     border-collapse: collapse;
 }
 
@@ -474,19 +486,36 @@ tr {
     font-weight: bold;
 }
 
-.status-progress, .status-inprogress {
-    background: rgba(245,158,11,.2);
-    color: #f59e0b;
+.status-progress {
+    background: #f59e0b;
 }
 
 .status-completed {
-    background: rgba(34,197,94,.2);
-    color: #22c55e;
+    background: #22c55e;
 }
 
 .status-abandoned {
-    background: rgba(239,68,68,.2);
-    color: #ef4444;
+    background: #ef4444;
+}
+.action-buttons {
+    position: relative;
+    display: flex;
+    gap: 8px;
+}
+.statusList {
+    position: absolute;
+    top: 45px;
+    left: -20%;
+    min-width: 180px;
+    background: #111827;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.35);
+    z-index: 100;
+}
+.statusList select {
+    margin: 0;
 }
 
 button {
@@ -949,4 +978,79 @@ body.login-page .logo-text {
 
 .font-large {
     font-size: 18px;
+}
+
+.filter-btn {
+    background: linear-gradient(145deg, #111827, #172033);
+    border: 2px solid #334155;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.header-left{
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    
+}
+.filtersPanel {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0;
+    gap: 12px;
+    height: auto;
+    align-items: center;
+}
+
+.filters-menu {
+    position: relative;
+    width: 180px;
+    height:auto;
+    background: #111827;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-top: -4px;
+    gap: 10px;
+}
+.filters-menu select {
+    width: auto;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: #e2e8f0;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+.filter-btn{
+    padding: 0;
+    height: auto;
+    width: 120px;
+    height: 40px;
+}
+.filters-menu.hidden {
+    display: none;
+}
+.hidden {
+    display: none;
+}
+
+.status-btn {
+    background: #c5c222;
+}
+.status-btn:hover {
+    background: #a3a30b;
+}
+
+.delete-btn {
+    background: #ef4444;
+}
+.delete-btn:hover {
+    background: #dc2626;
 }

@@ -40,6 +40,7 @@ public static class Database
                 AssignedUser TEXT NOT NULL DEFAULT 'Admin',
                 Status TEXT NOT NULL DEFAULT 'Open',
                 Deadline TEXT NOT NULL
+                IsDeleted INTEGER NOT NULL DEFAULT 0
             );
 
             CREATE TABLE IF NOT EXISTS Logs (
@@ -66,6 +67,21 @@ public static class Database
                 CreatedAt TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
             );
             """;
+            try
+            {
+                using var alterCommand = connection.CreateCommand();
+
+                alterCommand.CommandText = """
+                    ALTER TABLE Tasks
+                    ADD COLUMN IsDeleted INTEGER NOT NULL DEFAULT 0;
+                    """;
+
+                alterCommand.ExecuteNonQuery();
+            }
+            catch
+            {
+            }
+            
 
         command.ExecuteNonQuery();
 

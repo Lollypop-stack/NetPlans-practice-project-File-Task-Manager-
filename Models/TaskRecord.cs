@@ -14,3 +14,7 @@ public class TaskRecord
 
     public DateTime Deadline { get; set; }
 }
+public class StatusRequest
+{
+    public string Status { get; set; } = "";
+}

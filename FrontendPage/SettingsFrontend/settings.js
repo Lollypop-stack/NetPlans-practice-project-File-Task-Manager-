@@ -22,7 +22,7 @@ const translations = {
         file: 'File',
         assignedUser: 'Assigned User',
         status: 'Status: ',
-        lastModified: 'Last Modified',
+        lastModified: 'Last Modified: ',
         action: 'Action',
         taskDetails: 'Task Details',
         fileLabel: 'File:',
@@ -44,6 +44,7 @@ const translations = {
         storagePath: 'Storage path',
         browse: 'Browse',
         saveSettings: 'Save settings',
+        title: 'Title',
         dark: 'Dark',
         light: 'Light',
         system: 'System',
@@ -51,6 +52,8 @@ const translations = {
         medium: 'Medium',
         large: 'Large',
         deutsch: 'Deutsch',
+        statusLabel: 'Status',
+        lastModifiedLabel: 'Last modified',
         english: 'English',
         russian: 'Русский',
         settingsHeader: 'Settings',
@@ -82,10 +85,11 @@ const translations = {
         activeTasks: 'Aktive Aufgaben',
         completedTasks: 'Abgeschlossene Aufgaben',
         users: 'Benutzer',
-        file: 'Datei',
+        file: 'Datei: ',
+        title: 'Titel',
         assignedUser: 'Zugewiesener Benutzer',
         status: 'Status: ',
-        lastModified: 'Zuletzt geändert',
+        lastModified: 'Zuletzt geändert: ',
         action: 'Aktion',
         taskDetails: 'Aufgabendetails',
         fileLabel: 'Datei:',
@@ -115,6 +119,8 @@ const translations = {
         large: 'Groß',
         deutsch: 'Deutsch',
         english: 'English',
+        statusLabel: 'Status',
+        lastModifiedLabel: 'Zuletzt geändert',
         russian: 'Русский',
         settingsHeader: 'Einstellungen',
         settingsSaved: 'Einstellungen gespeichert.',
@@ -142,15 +148,19 @@ const translations = {
         logs: 'Журналы',
         settings: 'Настройки',
         totalFiles: 'Всего файлов',
+        title: 'Название',
+        lastModifiedLabel: 'Последнее изменение',
         activeTasks: 'Активных задач',
         completedTasks: 'Выполнено задач',
         users: 'Пользователи',
         file: 'Файл',
         assignedUser: 'Ответственный',
-        status: 'Статус:',
-        lastModified: 'Последнее изменение',
+        status: 'Статус: ',
+        statusLabel: 'Статус',
+        lastModified: 'Последнее изменение: ',
+        lastModifiedLabel: 'Последнее изменение',
         action: 'Действие',
-        taskDetails: 'Детали задачи',
+        taskDetails: 'Детали задачи: ',
         fileLabel: 'Файл:',
         userLabel: 'Пользователь:',
         descriptionLabel: 'Описание:',
@@ -265,15 +275,12 @@ function initSettingsForm(settings) {
     const themeSelect = document.getElementById('theme');
     const fontSizeSelect = document.getElementById('fontSize');
     const timezoneSelect = document.getElementById('timezone');
-    const storagePathInput = document.getElementById('storagePath');
     const saveButton = document.getElementById('saveSettings');
-    const browseButton = document.getElementById('browsePath');
 
     languageSelect.value = settings.language;
     themeSelect.value = settings.theme;
     fontSizeSelect.value = settings.fontSize;
     timezoneSelect.value = settings.timezone;
-    storagePathInput.value = settings.storagePath || '';
 
     if (!saveButton) {
         return;
@@ -285,7 +292,6 @@ function initSettingsForm(settings) {
             theme: themeSelect.value,
             fontSize: fontSizeSelect.value,
             timezone: timezoneSelect.value,
-            storagePath: storagePathInput.value
         };
 
         saveSettings(newSettings);

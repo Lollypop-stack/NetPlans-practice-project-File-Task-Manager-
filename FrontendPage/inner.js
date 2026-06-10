@@ -4,6 +4,14 @@ function updateAccountLabel() {
     if (userLabel) userLabel.textContent = currentUser;
 }
 
+function getStatusClass(status) {
+    const value = String(status || '').toLowerCase();
+    if (value.includes('Завершёна') || value.includes('completed') || value.includes('Erledigt')) return 'status-completed';
+    if (value.includes('В процессе') || value.includes('in progress') || value.includes('Aktiv')) return 'status-progress';
+    if (value.includes('Заброшена') || value.includes('abandoned') || value.includes('Abgebrochen')) return 'status-abandoned';
+}
+
+
 async function loadDashboardData() {
     try {
         const [filesResponse, tasksResponse, logsResponse] = await Promise.all([
@@ -19,16 +27,17 @@ async function loadDashboardData() {
         const files = await filesResponse.json();
         const tasks = await tasksResponse.json();
         const logs = await logsResponse.json();
+        const settings = JSON.parse(localStorage.getItem('ftm_settings') || '{}');
 
         document.getElementById('totalFiles').textContent = String(files.length ?? 0);
         document.getElementById('activeTasks').textContent = String(
-            tasks.filter((task) => String(task.status || '').toLowerCase() !== 'completed').length
+            tasks.filter((task) => getStatusClass(task.status) === 'status-progress').length
         );
         document.getElementById('completedTasks').textContent = String(
-            tasks.filter((task) => String(task.status || '').toLowerCase() === 'completed').length
+            tasks.filter((task) => getStatusClass(task.status) === 'status-completed').length
         );
-        document.getElementById('totalUsers').textContent = String(
-            new Set([...(files.map((file) => file.modifiedBy)), ...(tasks.map((task) => task.assignedUser))]).size
+        document.getElementById('abandonedTasks').textContent = String(
+            tasks.filter((task) => getStatusClass(task.status) === 'status-abandoned').length
         );
 
         const table = document.getElementById('taskTable');
@@ -37,18 +46,19 @@ async function loadDashboardData() {
         table.innerHTML = '';
 
         tasks.forEach((task, index) => {
+
             const row = document.createElement('tr');
-            row.dataset.taskId = String(task.id ?? index + 1);
+
             row.innerHTML = `
-                <td>${task.title ?? 'Untitled task'}</td>
                 <td>${task.fileName ?? ''}</td>
+                <td>${task.title ?? ''}</td>
                 <td>${task.assignedUser ?? ''}</td>
-                <td><span class="status ${getStatusClass(task.status)}">${task.status ?? 'Open'}</span></td>
+                <td><span class="status ${getStatusClass(task.status)}">${task.status}</span></td>
                 <td>${task.deadline ? new Date(task.deadline).toLocaleDateString() : '—'}</td>
-                <td><button type="button" class="button">Open</button></td>
-            `;
+                <td><button type="button">Open</button></td>`;
 
             row.addEventListener('click', () => showTaskDetails(task));
+
             table.appendChild(row);
         });
 
@@ -66,13 +76,6 @@ async function loadDashboardData() {
     }
 }
 
-function getStatusClass(status) {
-    const value = String(status || '').toLowerCase();
-    if (value.includes('Done') || value.includes('Completed') || value.includes('erledigt')) return 'status-completed';
-    if (value.includes('In progress') || value.includes('Active') || value.includes('Aktiv')) return 'status-progress';
-    if (value.includes('Abandoned') || value.includes('Cancelled') || value.includes('Abgebrochen'))
-    return 'status-abandoned';
-}
 
 function showTaskDetails(task) {
     const detailFile = document.getElementById('detailFile');
@@ -100,38 +103,7 @@ window.addEventListener('DOMContentLoaded', () => {
     updateAccountLabel();
 
     loadDashboardData();
-    setInterval(loadDashboardData, 3000);
+    setInterval(loadDashboardData, 30000);
 });
 
-document.addEventListener('DOMContentLoaded', () => {
 
-    const menuButton = document.querySelector('.menu-toggle');
-    const closeButton = document.querySelector('.mobile-nav-close');
-    const mobileNav = document.querySelector('.mobile-nav');
-    const overlay = document.querySelector('.mobile-nav-overlay');
-
-    function openMenu() {
-        mobileNav.classList.remove('hidden');
-        overlay.classList.add('active');
-
-        menuButton?.setAttribute('aria-expanded', 'true');
-    }
-
-    function closeMenu() {
-        mobileNav.classList.add('hidden');
-        overlay.classList.remove('active');
-
-        menuButton?.setAttribute('aria-expanded', 'false');
-    }
-
-    menuButton?.addEventListener('click', openMenu);
-    closeButton?.addEventListener('click', closeMenu);
-    overlay?.addEventListener('click', closeMenu);
-
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-            closeMenu();
-        }
-    });
-
-});

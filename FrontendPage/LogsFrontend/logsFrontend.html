@@ -22,12 +22,26 @@
             <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
-            <h1 data-i18n="activityLogs">Activity Logs</h1>
+            <div class="header-left">
+                <h1 data-i18n="activityLogs">Activity Logs</h1>
+                <div class="filtersPanel">
+                    <button class="filter-btn" type="button" id="filter-btn" aria-label="Open filters">Open Filters</button>
+                    <div class="filters-menu hidden" id="filtersMenu">
+                        <label for="FilterBox" data-i18n="sortBy:">Sort by:</label>
+                        <select id="FilterBox">
+                            <option value="az" data-i18n="az" class="filter-option">A-Z</option>
+                            <option value="za" data-i18n="za" class="filter-option">Z-A</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
             <div class="header-right">
                 <div class="account-card">
                     <div class="account-avatar" aria-hidden="true"><i class="fa-solid fa-circle-user"></i></div>
-                    <div class="account-copy"><span class="account-label">Account</span><strong class="user current-user-label">Admin</strong></div>
-                    <button type="button" class="account-toggle" aria-expanded="false" aria-label="Open account menu"><i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="account-copy"><span class="account-label">Account</span><strong
+                            class="user current-user-label">Admin</strong></div>
+                    <button type="button" class="account-toggle" aria-expanded="false" aria-label="Open account menu"><i
+                            class="fa-solid fa-chevron-down"></i></button>
                     <div class="account-menu" hidden>
                         <button type="button" class="account-menu-btn switch-account-btn">Switch account</button>
                         <button type="button" class="account-menu-btn register-account-btn">Register account</button>
@@ -45,10 +59,12 @@
             <a href="../FilesFrontend/filesFrontend.html"><i class="fa-solid fa-file"></i><span>Files</span></a>
             <a href="../TasksFrontend/tasksFrontend.html"><i class="fa-solid fa-list-check"></i><span>Tasks</span></a>
             <a href="logsFrontend.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Logs</span></a>
-            <a href="../SettingsFrontend/settingsFrontend.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../SettingsFrontend/settingsFrontend.html"><i
+                    class="fa-solid fa-gear"></i><span>Settings</span></a>
         </nav>
         <div class="mobile-nav-overlay"></div>
-        <input type="text" class="search-box" id="logSearch" placeholder="Search logs..." data-i18n-placeholder="searchLogs">
+        <input type="text" class="logSearch" id="logSearch" placeholder="Search logs..."
+            data-i18n-placeholder="searchLogs">
         <div class="table-container">
 
             <table>

@@ -1,5 +1,6 @@
 using CicdDashboardMini.Data;
 using Microsoft.Extensions.FileProviders;
+using CicdDashboardMini.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,14 +26,46 @@ app.MapGet("/api/files", () =>
     return FileRepository.GetAll();
 });
 
+app.MapGet("/api/tasks/deleted", () =>
+{
+    return TaskRepository.GetDeleted();
+});
+
+app.MapPut("/api/tasks/{id}/restore", (int id) =>
+{
+    var success = TaskRepository.Restore(id);
+
+    return success
+        ? Results.Ok()
+        : Results.NotFound();
+});
+
 app.MapGet("/api/tasks", () =>
 {
     return TaskRepository.GetAll();
 });
 
+app.MapPut("/api/tasks/{id}/status", (int id, StatusRequest request) =>
+{
+    var success = TaskRepository.UpdateStatus(id, request.Status);
+
+    return success
+        ? Results.Ok()
+        : Results.NotFound();
+});
+
 app.MapGet("/api/logs", () =>
 {
     return LogRepository.GetAll();
+});
+
+app.MapDelete("/api/tasks/{id}", (int id) =>
+{
+    var success = TaskRepository.Delete(id);
+
+    return success
+        ? Results.Ok()
+        : Results.NotFound();
 });
 
 app.MapGet("/api/settings", () =>
@@ -83,6 +116,8 @@ app.MapPost("/api/auth/login", (AuthLoginRequest request) =>
 
     return Results.Ok(new { success = true, username = request.Username, message = "Login successful." });
 });
+
+Console.WriteLine(builder.Environment.ContentRootPath);
 
 app.Run();
 
