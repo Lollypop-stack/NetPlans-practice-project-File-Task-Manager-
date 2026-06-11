@@ -52,7 +52,7 @@ public static class UserRepository
 
         command.Parameters.AddWithValue("@username", username);
         command.Parameters.AddWithValue("@passwordHash", passwordHash);
-        command.Parameters.AddWithValue("@createdAt", DateTime.UtcNow.ToString("O"));
+        command.Parameters.AddWithValue("@createdAt", DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
 
         command.ExecuteNonQuery();
         return true;

@@ -18,6 +18,7 @@ public static class Database
         return new SqliteConnection($"Data Source={DatabaseFile}");
     }
 
+
     public static void Initialize()
     {
         using var connection = GetConnection();
@@ -67,21 +68,35 @@ public static class Database
                 CreatedAt TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
             );
             """;
-            try
-            {
-                using var alterCommand = connection.CreateCommand();
+        try
+        {
+            using var alterCommand = connection.CreateCommand();
 
-                alterCommand.CommandText = """
+            alterCommand.CommandText = """
                     ALTER TABLE Tasks
                     ADD COLUMN IsDeleted INTEGER NOT NULL DEFAULT 0;
                     """;
 
-                alterCommand.ExecuteNonQuery();
-            }
-            catch
-            {
-            }
-            
+            alterCommand.ExecuteNonQuery();
+        }
+        catch
+        {
+        }
+        try
+        {
+            using var alterLogsCommand = connection.CreateCommand();
+
+            alterLogsCommand.CommandText = """
+        ALTER TABLE Logs
+        ADD COLUMN TargetId INTEGER;
+        """;
+
+            alterLogsCommand.ExecuteNonQuery();
+        }
+        catch
+        {
+        }
+
 
         command.ExecuteNonQuery();
 
@@ -169,4 +184,5 @@ public static class Database
             insertSettings.ExecuteNonQuery();
         }
     }
+
 }

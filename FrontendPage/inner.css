@@ -77,24 +77,35 @@ body.nav-open {
 }
 
 .page-actions {
-    display: flex;
-    align-items: center;
     margin-bottom: 18px;
     background-color: #2563eb;
     width: 150px;
     height: 40px;
+    margin-bottom: auto;
     margin-left: auto;
     border-radius: 8px;
     transition: background-color 0.2s ease;
     gap: 8px;
     font-weight: bold;
 }
-.page-actions.save-changes-btn {
+.page-actions.new-task-btn {
     min-width: 200px;
     margin-left: 25px;
     margin-top: 20px;
 }
-
+.page-actions.restore-button {
+    background-color: #22c55e;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.page-actions.restore-button:hover {
+    background-color: #17853f;
+}
+.page-actions.restore-button.hidden{
+    display: none;
+}
 .header {
     display: flex;
     justify-content: space-between;
@@ -279,9 +290,6 @@ body.nav-open {
         z-index: 60;
         transition: left 0.25s ease;
         box-shadow: 18px 0 30px rgba(15, 23, 42, 0.35);
-    }
-    .sidebar.hidden{
-        display: none;
     }
 
     .sidebar.open {
@@ -848,9 +856,6 @@ body.login-page .logo-text {
     .sidebar {
         padding: 20px 16px;
     }
-    .sidebar.hidden{
-        display: none;
-    }
 
     .sidebar a,
     .menu a {
@@ -893,6 +898,11 @@ body.login-page .logo-text {
         padding: 12px;
     }
 }
+
+.sidebar.hidden{
+    display: none;
+}
+
 .returnButton {
     display: flex;
     align-items: center;
@@ -1049,8 +1059,14 @@ body.login-page .logo-text {
 }
 
 .delete-btn {
+    position: relative;
     background: #ef4444;
 }
 .delete-btn:hover {
     background: #dc2626;
+}
+.restoreDelete-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

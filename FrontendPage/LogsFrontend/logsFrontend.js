@@ -35,31 +35,40 @@ function noSimilarResults() {
 
 
 function renderLogs() {
-    logs = [...allLogs];
+
+    let logs = [...allLogs];
 
     if (!table) return;
 
-    const search = document.getElementById("logSearch")?.value?.toLowerCase() || "";
+    const search =
+        document.getElementById("logSearch")
+            ?.value
+            ?.toLowerCase() || "";
 
     if (search) {
         logs = logs.filter(log =>
-            String(log.user || "").toLowerCase().includes(search)
+            String(log.user || "")
+                .toLowerCase()
+                .includes(search)
         );
     }
+    const restoredTaskIds = logs
+        .filter(log => log.action === "Restored task")
+        .map(log => log.targetId);
 
     const filter = document.getElementById("FilterBox")?.value || "";
 
     if (filter === "az") {
         logs.sort((a, b) =>
-            String(a.title || "")
-                .localeCompare(String(b.title || ""))
+            String(a.target || "")
+                .localeCompare(String(b.target || ""))
         );
     }
 
     if (filter === "za") {
         logs.sort((a, b) =>
-            String(b.title || "")
-                .localeCompare(String(a.title || ""))
+            String(b.target || "")
+                .localeCompare(String(a.target || ""))
         );
     }
 
@@ -67,21 +76,62 @@ function renderLogs() {
         noSimilarResults();
         return;
     }
+    logs.sort((a, b) =>
+    new Date(b.date) - new Date(a.date)
+);
 
     table.innerHTML = "";
-    if (logs.action == "Deleted task") {
-        logs.forEach(element => {
-            table.innerHTML += `
-                <tr>
-                    <td>${element.date}</td>
-                    <td>${element.user}</td>
-                    <td>${element.action}</td>
-                    <td>${element.target}</td>
-                    <td>
-                        <button type="button" class="page-actions" id="restoreBtn-${element.id}" onclick = "restoreTask(${log.TargetId});">Open</button>
-                    </td>
-                </tr>`;
-        });
+
+    logs.forEach(log => {
+
+        const isRestored =
+            log.action === "Deleted task" &&
+            restoredTaskIds.includes(log.targetId);
+
+        table.innerHTML += `
+        <tr>
+            <td>${log.date}</td>
+            <td>${log.user}</td>
+            <td>${log.action}</td>
+            <td>${log.target}</td>
+            <td>
+                ${log.action === "Deleted task"
+                ? `
+                        <button
+                            class="page-actions restore-button ${isRestored ? "hidden" : ""}"
+                            onclick="restoreTask(${log.targetId})"
+                            ${isRestored ? "disabled" : ""}>Restore
+                        </button>
+                    `
+                : ""
+            }
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteLogs(${log.id})">
+                    Delete
+                </button>
+            </td>
+        </tr>
+    `;
+    });
+}
+
+async function deleteLogs(id) {
+    if (!confirm("Delete this task?")) {
+        return;
+    }
+    console.log(`/api/logs/${id}`);
+    const response = await fetch(`/api/logs/${id}`, {
+        method: "DELETE"
+    });
+
+    if (response.ok) {
+        loadLogs();
+
+    } else if (!response.ok) {
+        alert("Faliled to delete log!");
+        return;
     }
 }
 
@@ -99,8 +149,6 @@ async function restoreTask(taskId) {
     }
 }
 
-const logSearch = document.getElementById('logSearch');
-if (logSearch) logSearch.addEventListener('input', renderLogs);
 
 document.getElementById("logSearch")?.addEventListener("input", renderLogs);
 document.getElementById("FilterBox")?.addEventListener("change", renderLogs);

@@ -53,7 +53,15 @@ async function loadDashboardData() {
                 <td>${task.fileName ?? ''}</td>
                 <td>${task.title ?? ''}</td>
                 <td>${task.assignedUser ?? ''}</td>
-                <td><span class="status ${getStatusClass(task.status)}">${task.status}</span></td>
+                <td><span class="status-badge" style=" background-color: ${
+                task.status === "Completed"
+                    ? "#22c55e"
+                    : task.status === "In Progress"
+                    ? "#c5c222"
+                    : task.status === "Abandoned"
+                    ? "#6b7280"
+                    : "#3b82f6"
+            }; padding: 8px 12px; border-radius: 10px; color: white;">${task.status}</span></td>
                 <td>${task.deadline ? new Date(task.deadline).toLocaleDateString() : '—'}</td>
                 <td><button type="button">Open</button></td>`;
 

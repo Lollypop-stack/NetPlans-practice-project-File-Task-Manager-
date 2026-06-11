@@ -36,6 +36,7 @@ public static class LogRepository
     }
     public static void Add(string user, string action, string target, int TargetId)
     {
+
         using var connection = Database.GetConnection();
         connection.Open();
 
@@ -47,12 +48,30 @@ public static class LogRepository
         (@date, @user, @action, @target, @targetId)
         """;
 
-        command.Parameters.AddWithValue("@date", DateTime.UtcNow.ToString("O"));
+        command.Parameters.AddWithValue("@date", DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
         command.Parameters.AddWithValue("@user", user);
         command.Parameters.AddWithValue("@action", action);
         command.Parameters.AddWithValue("@target", target);
-        command.Parameters.AddWithValue("@TargetId", TargetId);
+        command.Parameters.AddWithValue("@targetId", TargetId);
 
         command.ExecuteNonQuery();
     }
+
+    public static bool Delete(int id)
+    {
+        using var connection = Database.GetConnection();
+        connection.Open();
+
+        using var command = connection.CreateCommand();
+
+        command.CommandText = """
+        DELETE FROM Logs
+        WHERE Id = @id
+        """;
+
+        command.Parameters.AddWithValue("@id", id);
+
+        return command.ExecuteNonQuery() > 0;
+    }
+
 }

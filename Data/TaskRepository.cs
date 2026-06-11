@@ -41,6 +41,21 @@ public static class TaskRepository
         using var connection = Database.GetConnection();
         connection.Open();
 
+        string title = "";
+
+        using (var selectCommand = connection.CreateCommand())
+        {
+            selectCommand.CommandText = """
+            SELECT Title
+            FROM Tasks
+            WHERE Id = @id
+            """;
+
+            selectCommand.Parameters.AddWithValue("@id", id);
+
+            title = selectCommand.ExecuteScalar()?.ToString() ?? "";
+        }
+
         using var command = connection.CreateCommand();
 
         command.CommandText = """
@@ -52,7 +67,19 @@ public static class TaskRepository
         command.Parameters.AddWithValue("@status", status);
         command.Parameters.AddWithValue("@id", id);
 
-        return command.ExecuteNonQuery() > 0;
+        if (command.ExecuteNonQuery() > 0)
+        {
+            LogRepository.Add(
+                "Admin",
+                $"Changed status to {status}",
+                title,
+                id
+            );
+
+            return true;
+        }
+
+        return false;
     }
 
     public static bool Delete(int id)
@@ -60,7 +87,6 @@ public static class TaskRepository
         using var connection = Database.GetConnection();
         connection.Open();
 
-        // Получаем название задачи до удаления
         string title = "";
 
         using (var selectCommand = connection.CreateCommand())
@@ -107,17 +133,45 @@ public static class TaskRepository
         using var connection = Database.GetConnection();
         connection.Open();
 
-        using var command = connection.CreateCommand();
+        string title = "";
 
-        command.CommandText = """
-        UPDATE Tasks
-        SET IsDeleted = 0
-        WHERE Id = @id
-        """;
+        using (var selectCommand = connection.CreateCommand())
+        {
+            selectCommand.CommandText = """
+            SELECT Title
+            FROM Tasks
+            WHERE Id = @id
+            """;
 
-        command.Parameters.AddWithValue("@id", id);
+            selectCommand.Parameters.AddWithValue("@id", id);
 
-        return command.ExecuteNonQuery() > 0;
+            title = selectCommand.ExecuteScalar()?.ToString() ?? "";
+        }
+
+        using (var command = connection.CreateCommand())
+        {
+            command.CommandText = """
+            UPDATE Tasks
+            SET IsDeleted = 0
+            WHERE Id = @id
+            """;
+
+            command.Parameters.AddWithValue("@id", id);
+
+            if (command.ExecuteNonQuery() > 0)
+            {
+                LogRepository.Add(
+                    "Admin",
+                    "Restored task",
+                    title,
+                    id
+                );
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static List<TaskRecord> GetDeleted()

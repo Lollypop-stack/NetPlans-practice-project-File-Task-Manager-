@@ -49,9 +49,7 @@ app.MapPut("/api/tasks/{id}/status", (int id, StatusRequest request) =>
 {
     var success = TaskRepository.UpdateStatus(id, request.Status);
 
-    return success
-        ? Results.Ok()
-        : Results.NotFound();
+    return success ? Results.Ok() : Results.NotFound();
 });
 
 app.MapGet("/api/logs", () =>
@@ -62,6 +60,15 @@ app.MapGet("/api/logs", () =>
 app.MapDelete("/api/tasks/{id}", (int id) =>
 {
     var success = TaskRepository.Delete(id);
+
+    return success
+        ? Results.Ok()
+        : Results.NotFound();
+});
+
+app.MapDelete("/api/logs/{id}", (int id) =>
+{
+    var success = LogRepository.Delete(id);
 
     return success
         ? Results.Ok()

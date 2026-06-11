@@ -138,7 +138,7 @@ function renderTasks() {
                     <div class="statusList hidden" id="statusList-${task.id}">
                         <select onchange="changeStatus(${task.id}, this.value)">
                             <option value="Abandoned" ${task.status === "Abandoned" ? "selected" : ""}>Abandoned</option>
-                            <option value="In Progress" ${task.status === "In Progress" ? "selected" : ""}">In Progress</option>
+                            <option value="In Progress" ${task.status === "In Progress" ? "selected" : ""}>In Progress</option>
                             <option value="Completed" ${task.status === "Completed" ? "selected" : ""}>Completed</option>
                         </select>
                     </div>
