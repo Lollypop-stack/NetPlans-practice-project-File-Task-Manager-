@@ -9,6 +9,10 @@ const defaultSettings = {
 
 const translations = {
     en: {
+        date: 'Date',
+        createTask: 'Create Task',
+        sortBy: 'Sort by: ',
+        filterButton: 'Open Filters',
         appTitle: 'File Task Manager',
         dashboard: 'Dashboard',
         files: 'Files',
@@ -20,6 +24,7 @@ const translations = {
         completedTasks: 'Completed Tasks',
         users: 'Users',
         file: 'File',
+        AbandonedTasks: 'Abandoned Tasks',
         assignedUser: 'Assigned User',
         status: 'Status: ',
         lastModified: 'Last Modified: ',
@@ -72,9 +77,23 @@ const translations = {
         placeholderChooseUsername: 'choose a username',
         placeholderRepeatPassword: 'repeat password',
         adminHint: 'admin / admin → admin panel',
-        selectFolder: 'Select folder'
+        selectFolder: 'Select folder',
+        saveChangesButton: 'Save changes',
+        switchAccount: 'Switch account',
+        logOut: 'Log out',
+        registerAccount: 'Register account',
+        deleteButton: 'Delete',
+        changeStatusButton: 'Change Status',
+        version: 'Version',
+        modifiedBy: 'Changed by'
     },
     de: {
+        date: 'Datum',
+        deleteButton: 'Löschen',
+        createTask: 'Aufgabe erstellen',
+        sortBy: 'Sortieren nach: ',
+        filterButton: 'Filter Anzeigen',
+        AbandonedTasks: 'Aufgeschobene Aufgaben',
         appTitle: 'Datei-Aufgabenmanager',
         dashboard: 'Dashboard',
         files: 'Dateien',
@@ -93,6 +112,7 @@ const translations = {
         action: 'Aktion',
         taskDetails: 'Aufgabendetails',
         fileLabel: 'Datei:',
+        file: 'Datei',
         userLabel: 'Benutzer:',
         descriptionLabel: 'Beschreibung:',
         back: 'Zurück',
@@ -121,6 +141,7 @@ const translations = {
         english: 'English',
         statusLabel: 'Status',
         lastModifiedLabel: 'Zuletzt geändert',
+        saveChangesButton: 'Änderungen speichern',
         russian: 'Русский',
         settingsHeader: 'Einstellungen',
         settingsSaved: 'Einstellungen gespeichert.',
@@ -138,9 +159,24 @@ const translations = {
         placeholderChooseUsername: 'Wählen Sie einen Benutzernamen',
         placeholderRepeatPassword: 'Passwort wiederholen',
         adminHint: 'admin / admin → Admin-Bereich',
-        selectFolder: 'Ordner wählen'
+        selectFolder: 'Ordner wählen',
+        switchAccount: 'Konto wechseln',
+        logOut: 'Abmelden',
+        registerAccount: 'Konto registrieren',
+        changeStatusButton: 'Status Wächseln',
+        version: 'Version',
+        modifiedBy: 'Geändert von'
     },
     ru: {
+        date: 'Дата',
+        modifiedBy: 'Кем изменено',
+        version: 'Версия',
+        changeStatusButton: 'Изменить Статус',
+        deleteButton: 'Удалить',
+        createTask: 'Создать задачу',
+        sortBy: 'Сортировать по: ', 
+        filterButton: 'Открыть фильтры',
+        AbandonedTasks: 'Заброшенные Задания',
         appTitle: 'Менеджер файлов и задач',
         dashboard: 'Панель',
         files: 'Файлы',
@@ -180,6 +216,7 @@ const translations = {
         storagePath: 'Путь хранения',
         browse: 'Обзор',
         saveSettings: 'Сохранить',
+        saveChangesButton: 'Сохранить изменения',
         dark: 'Тёмная',
         light: 'Светлая',
         system: 'Системная',
@@ -205,7 +242,10 @@ const translations = {
         placeholderChooseUsername: 'выберите имя пользователя',
         placeholderRepeatPassword: 'повторите пароль',
         adminHint: 'admin / admin → админ-панель',
-        selectFolder: 'Выбрать папку'
+        selectFolder: 'Выбрать папку',
+        switchAccount: 'Сменить аккаунт',
+        logOut: 'Выйти из аккаунта',
+        registerAccount: 'Зарегистрироваться'
     }
 };
 

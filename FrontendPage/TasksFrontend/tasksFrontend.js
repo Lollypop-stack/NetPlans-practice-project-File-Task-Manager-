@@ -134,15 +134,15 @@ function renderTasks() {
                 : ""}
                 </td>
                 <td class="action-buttons">
-                    <button class="status-btn" id="statusBtn" onclick="toggleStatus(${task.id})">Change Status</button>
+                    <button class="status-btn" id="statusBtn" onclick="toggleStatus(${task.id})"  data-i18n="changeStatusButton">Change Status</button>
                     <div class="statusList hidden" id="statusList-${task.id}">
                         <select onchange="changeStatus(${task.id}, this.value)">
                             <option value="Abandoned" ${task.status === "Abandoned" ? "selected" : ""}>Abandoned</option>
-                            <option value="In Progress" ${task.status === "In Progress" ? "selected" : ""}>In Progress</option>
+                            <option value="In Progress" ${task.status === "In Progress" ? "selected" : ""}">In Progress</option>
                             <option value="Completed" ${task.status === "Completed" ? "selected" : ""}>Completed</option>
                         </select>
                     </div>
-                    <button class="delete-btn" id="deleteBtn-${task.id}" onclick="deleteTask(${task.id})">Delete</button>
+                    <button class="delete-btn" id="deleteBtn-${task.id}" onclick="deleteTask(${task.id})" data-i18n="deleteButton">Delete</button>
                 </td>
             </tr>
         `;
@@ -168,6 +168,7 @@ async function deleteTask(taskId) {
 
     if (response.ok) {
         loadTasks();
+        
     }else if(!response.ok){
         alert("Faliled to delete task!");
         return;

@@ -25,9 +25,9 @@
             <div class="header-left">
                 <h1 data-i18n="activityLogs">Activity Logs</h1>
                 <div class="filtersPanel">
-                    <button class="filter-btn" type="button" id="filter-btn" aria-label="Open filters">Open Filters</button>
+                    <button class="filter-btn" data-i18n="filterButton" ="button" id="filter-btn" aria-label="Open filters">Open Filters</button>
                     <div class="filters-menu hidden" id="filtersMenu">
-                        <label for="FilterBox" data-i18n="sortBy:">Sort by:</label>
+                        <label for="FilterBox" data-i18n="sortBy">Sort by:</label>
                         <select id="FilterBox">
                             <option value="az" data-i18n="az" class="filter-option">A-Z</option>
                             <option value="za" data-i18n="za" class="filter-option">Z-A</option>
@@ -43,9 +43,9 @@
                     <button type="button" class="account-toggle" aria-expanded="false" aria-label="Open account menu"><i
                             class="fa-solid fa-chevron-down"></i></button>
                     <div class="account-menu" hidden>
-                        <button type="button" class="account-menu-btn switch-account-btn">Switch account</button>
-                        <button type="button" class="account-menu-btn register-account-btn">Register account</button>
-                        <button type="button" class="account-menu-btn danger logout-btn">Log out</button>
+                        <button type="button" class="account-menu-btn switch-account-btn" data-i18n="switchAccount">Switch account</button>
+                        <button type="button" class="account-menu-btn register-account-btn" data-i18n="registerAccount">Register account</button>
+                        <button type="button" class="account-menu-btn danger logout-btn" data-i18n="logOut">Log out</button>
                     </div>
                 </div>
             </div>
@@ -56,10 +56,10 @@
                 <button type="button" class="mobile-nav-close" aria-label="Close navigation menu">×</button>
             </div>
             <a href="../inner.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
-            <a href="../FilesFrontend/filesFrontend.html"><i class="fa-solid fa-file"></i><span>Files</span></a>
-            <a href="../TasksFrontend/tasksFrontend.html"><i class="fa-solid fa-list-check"></i><span>Tasks</span></a>
-            <a href="logsFrontend.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Logs</span></a>
-            <a href="../SettingsFrontend/settingsFrontend.html"><i
+            <a href="../FilesFrontend/filesFrontend.html" data-i18n="file"><i class="fa-solid fa-file"></i><span>Files</span></a>
+            <a href="../TasksFrontend/tasksFrontend.html" data-i18n="taskstitle"><i class="fa-solid fa-list-check"></i><span>Tasks</span></a>
+            <a href="logsFrontend.html"  data-i18n="logs"><i class="fa-solid fa-clock-rotate-left"></i><span>Logs</span></a>
+            <a href="../SettingsFrontend/settingsFrontend.html"  data-i18n="settingsHeader"><i
                     class="fa-solid fa-gear"></i><span>Settings</span></a>
         </nav>
         <div class="mobile-nav-overlay"></div>
@@ -71,10 +71,11 @@
 
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>User</th>
-                        <th>Action</th>
-                        <th>Target</th>
+                        <th data-i18n="date">Date</th>
+                        <th data-i18n="assignedUser">User</th>
+                        <th data-i18n="action">Action</th>
+                        <th data-i18n="file">Target</th>
+                        <th></th>
                     </tr>
                 </thead>
 

@@ -39,7 +39,7 @@ public static class Database
                 FileName TEXT NOT NULL,
                 AssignedUser TEXT NOT NULL DEFAULT 'Admin',
                 Status TEXT NOT NULL DEFAULT 'Open',
-                Deadline TEXT NOT NULL
+                Deadline TEXT NOT NULL,
                 IsDeleted INTEGER NOT NULL DEFAULT 0
             );
 

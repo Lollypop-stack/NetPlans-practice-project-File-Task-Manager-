@@ -24,10 +24,11 @@
             <div class="header-left">
                 <h1 data-i18n="filesTitle">Files</h1>
                 <div class="filtersPanel">
-                    <button class="filter-btn" type="button" id="filter-btn" aria-label="Open filters">Open
+                    <button class="filter-btn" data-i18n="filterButton" type="button" id="filter-btn"
+                        aria-label="Open filters">Open
                         Filters</button>
                     <div class="filters-menu hidden" id="filtersMenu">
-                        <label for="FilterBox" data-i18n="sortBy:">Sort by:</label>
+                        <label for="FilterBox" data-i18n="sortBy">Sort by:</label>
                         <select id="FilterBox">
                             <option value="az" data-i18n="az" class="filter-option">A-Z</option>
                             <option value="za" data-i18n="za" class="filter-option">Z-A</option>
@@ -43,9 +44,9 @@
                     <button type="button" class="account-toggle" aria-expanded="false" aria-label="Open account menu"><i
                             class="fa-solid fa-chevron-down"></i></button>
                     <div class="account-menu" hidden>
-                        <button type="button" class="account-menu-btn switch-account-btn">Switch account</button>
-                        <button type="button" class="account-menu-btn register-account-btn">Register account</button>
-                        <button type="button" class="account-menu-btn danger logout-btn">Log out</button>
+                        <button type="button" class="account-menu-btn switch-account-btn" data-i18n="switchAccount">Switch account</button>
+                        <button type="button" class="account-menu-btn register-account-btn" data-i18n="registerAccount">Register account</button>
+                        <button type="button" class="account-menu-btn danger logout-btn" data-i18n="logOut">Log out</button>
                     </div>
                 </div>
             </div>
@@ -64,9 +65,9 @@
                     class="fa-solid fa-gear"></i><span>Settings</span></a>
         </nav>
         <div class="mobile-nav-overlay"></div>
-        <div class="page-actions">
-            <button id="uploadFileBtn" data-i18n="uploadFile">Upload File</button>
-        </div>
+        <button class="page-actions" data-i18n="createTask">
+           <i class="fa-solid fa-plus"></i>Create Task
+        </button>
         <input type="text" class="search-box" id="fileSearch" placeholder="Search files..."
             data-i18n-placeholder="searchFiles">
         <div class="table-container">
@@ -75,11 +76,11 @@
 
                 <thead>
                     <tr>
-                        <th>File Name</th>
-                        <th>Version</th>
-                        <th>Last Modified</th>
-                        <th>Modified By</th>
-                        <th>Action</th>
+                        <th data-i18n="title">File Name</th>
+                        <th data-i18n="version">Version</th>
+                        <th data-i18n="lastModified">Last Modified</th>
+                        <th data-i18n="modifiedBy">Modified By</th>
+                        <th data-i18n="action">Action</th>
                     </tr>
                 </thead>
 

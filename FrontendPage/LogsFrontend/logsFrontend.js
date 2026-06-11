@@ -4,11 +4,17 @@ const table = document.getElementById("logsTable");
 async function loadLogs() {
     try {
         const response = await fetch('/api/logs');
-        if (!response.ok) throw new Error('Failed to load logs');
+
+        if (!response.ok)
+            throw new Error('Failed to load logs');
 
         allLogs = await response.json();
+
+        console.log(allLogs);
+
         renderLogs();
-    } catch (error) {
+    }
+    catch (error) {
         console.error('loadLogs failed:', error);
     }
 }
@@ -27,10 +33,11 @@ function noSimilarResults() {
     `;
 }
 
+
 function renderLogs() {
+    logs = [...allLogs];
 
     if (!table) return;
-    let logs = [...allLogs];
 
     const search = document.getElementById("logSearch")?.value?.toLowerCase() || "";
 
@@ -40,7 +47,7 @@ function renderLogs() {
         );
     }
 
-    const filter = document.getElementById("FilterBox")?.value|| "";
+    const filter = document.getElementById("FilterBox")?.value || "";
 
     if (filter === "az") {
         logs.sort((a, b) =>
@@ -62,21 +69,38 @@ function renderLogs() {
     }
 
     table.innerHTML = "";
-
-    logs.forEach(log => {
-
-        table.innerHTML += `
-        <tr>
-            <td>${log.date}</td>
-            <td>${log.user}</td>
-            <td>${log.action}</td>
-            <td>${log.target}</td>
-            <td>
-                <button type="button">Open</button>
-            </td>
-        </tr>`;
-    });
+    if (logs.action == "Deleted task") {
+        logs.forEach(element => {
+            table.innerHTML += `
+                <tr>
+                    <td>${element.date}</td>
+                    <td>${element.user}</td>
+                    <td>${element.action}</td>
+                    <td>${element.target}</td>
+                    <td>
+                        <button type="button" class="page-actions" id="restoreBtn-${element.id}" onclick = "restoreTask(${log.TargetId});">Open</button>
+                    </td>
+                </tr>`;
+        });
+    }
 }
+
+async function restoreTask(taskId) {
+
+    const response = await fetch(
+        `/api/tasks/${taskId}/restore`,
+        {
+            method: "PUT"
+        }
+    );
+
+    if (response.ok) {
+        loadLogs();
+    }
+}
+
+const logSearch = document.getElementById('logSearch');
+if (logSearch) logSearch.addEventListener('input', renderLogs);
 
 document.getElementById("logSearch")?.addEventListener("input", renderLogs);
 document.getElementById("FilterBox")?.addEventListener("change", renderLogs);
@@ -89,6 +113,5 @@ if (filtersBtn && filtersMenu) {
         filtersMenu.classList.toggle("hidden");
     });
 }
-
-const logSearch = document.getElementById('logSearch');
-if (logSearch) logSearch.addEventListener('input', renderLogs);
+loadLogs();
+setInterval(loadLogs, 30000);

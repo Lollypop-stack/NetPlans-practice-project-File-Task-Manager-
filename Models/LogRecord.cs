@@ -11,4 +11,6 @@ public class LogRecord
     public string Action { get; set; } = "";
 
     public string Target { get; set; } = "";
+
+    public int TargetId { get; set; }
 }

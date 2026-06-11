@@ -60,17 +60,46 @@ public static class TaskRepository
         using var connection = Database.GetConnection();
         connection.Open();
 
-        using var command = connection.CreateCommand();
+        // Получаем название задачи до удаления
+        string title = "";
 
-        command.CommandText = """
-        UPDATE Tasks
-        SET IsDeleted = 1
-        WHERE Id = @id
-        """;
+        using (var selectCommand = connection.CreateCommand())
+        {
+            selectCommand.CommandText = """
+            SELECT Title
+            FROM Tasks
+            WHERE Id = @id
+            """;
 
-        command.Parameters.AddWithValue("@id", id);
+            selectCommand.Parameters.AddWithValue("@id", id);
 
-        return command.ExecuteNonQuery() > 0;
+            title = selectCommand.ExecuteScalar()?.ToString() ?? "";
+        }
+
+        using (var deleteCommand = connection.CreateCommand())
+        {
+            deleteCommand.CommandText = """
+            UPDATE Tasks
+            SET IsDeleted = 1
+            WHERE Id = @id
+            """;
+
+            deleteCommand.Parameters.AddWithValue("@id", id);
+
+            if (deleteCommand.ExecuteNonQuery() == 0)
+            {
+                return false;
+            }
+        }
+
+        LogRepository.Add(
+            "Admin",
+            "Deleted task",
+            title,
+            id
+        );
+
+        return true;
     }
 
     public static bool Restore(int id)

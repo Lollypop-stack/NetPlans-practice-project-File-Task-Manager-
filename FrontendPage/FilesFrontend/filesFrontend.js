@@ -58,7 +58,7 @@ function renderFiles() {
                 <td>${file.version ?? ''}</td>
                 <td>${file.lastModified ? new Date(file.lastModified).toLocaleString() : ''}</td>
                 <td>${file.modifiedBy ?? ''}</td>
-                <td><button type="button">Open</button></td>
+                <td><button type="button hidden">Open</button></td>
             </tr> `; });
 }
 
